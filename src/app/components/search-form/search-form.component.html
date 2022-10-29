@@ -1,17 +1,24 @@
-<h3>Search</h3>
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<div class="container">
 
-    <label for="term">
-        <input type="text" pInputText id="term" formControlName="q"/>
-    </label>
+    <h1 class="text-center p-3">Find your next party!</h1>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="row">
+        
+        <label for="term" class="col-sm-4 control-label mb-3">
+            Tags
+            <input type="text" pInputText id="term" formControlName="q" class="d-flex w-100"/>
+        </label>
 
-    <label for="location">
-        <p-dropdown [options]="locations" optionLabel="name" optionValue="value" id="location" formControlName="bezirk"></p-dropdown>
-    </label>
-
-    <label for="per_page">
-        <input type="number" pInputText id="per_page" formControlName="ipp" />
-    </label>
-
-    <button pButton type="submit" label="Search"></button>
-</form>
+        <label for="location" class="col-sm-4 control-label mb-3">
+            Locations
+            <p-dropdown [options]="locations" optionLabel="name" optionValue="value" id="location" formControlName="bezirk" [styleClass]="'d-flex'"></p-dropdown>
+        </label>
+        
+        <label for="per_page" class="col-sm-2 control-label mb-3">
+            Results
+            <input type="number" pInputText id="per_page" formControlName="ipp" class="w-100" />
+        </label>
+        
+        <button pButton type="submit" label="Search" class="col-sm-2 mb-3 submit-btn"></button>
+    </form>
+    
+</div>

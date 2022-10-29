@@ -1,0 +1,11 @@
+::ng-deep {
+  #parties-table {
+    td {
+        white-space: pre-line;
+        min-width: 150px;
+    }
+    tr {
+        border-bottom: 2px solid #dededee0;
+    }
+  }  
+}

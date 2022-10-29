@@ -1,0 +1,24 @@
+<p-table 
+    [value]="parties" 
+    id="parties-table"
+    [scrollable]="true" 
+    scrollHeight="80vh"
+    [virtualScroll]="true" 
+    [virtualScrollItemSize]="40">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Title</th>
+            <th>PLZ</th>
+            <th>Day</th>
+            <th>Time</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-party>
+        <tr>
+            <td>{{party.properties.title}}</td>
+            <td>{{party.properties.data.plz}}</td>
+            <td>{{party.properties.data.tage}}</td>
+            <td>{{party.properties.data.zeiten}}</td>
+        </tr>
+    </ng-template>
+</p-table>

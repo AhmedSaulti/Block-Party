@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { map } from 'rxjs';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-search-form',
@@ -27,15 +29,36 @@ export class SearchFormComponent implements OnInit {
   searchForm = this.fb.group({
     q: [''],
     bezirk: [''],
-    ipp: [''],
+    ipp: [10, [Validators.required, Validators.min(1)]],
   });
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
   }
   onSubmit() {
-    console.log(this.searchForm.value);
+    if(!this.searchForm.valid) return;
+
+    const formValue = this.searchForm.value as any;
+    let searchQuery = '';
+    Object.keys(formValue).forEach((key:string) => {
+      searchQuery += key + '=' + formValue[key] + '&';
+    })
+    this.searchService.getParties(searchQuery)
+    .pipe(
+      map((data: any) => data.features)
+    )
+    .subscribe({
+      next: parties => {
+        console.log(parties);
+        this.searchService.partiesBS.next(parties);
+      },
+      error: err => {
+        console.error(err);
+      }
+    })
+    
   }
 }
